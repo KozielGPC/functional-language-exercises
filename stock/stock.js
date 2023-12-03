@@ -1,5 +1,6 @@
-function stockCheckRecursive(size, orders) {
-    const acceptedOrders = [];
+// Sem construção funcional
+function stockCheck(size, orders) {
+    let acceptedOrders = [];
 
     function checkOrders(index) {
         if (index >= orders.length) {
@@ -13,9 +14,13 @@ function stockCheckRecursive(size, orders) {
             size -= currentOrder;
         } else if (currentOrder - acceptedOrders[0] <= size) {
             acceptedOrders.push(currentOrder);
-            size -= currentOrder - orders[0];
-            const firstOrderIndex = acceptedOrders.findIndex(order => order === orders[0]);
-            acceptedOrders.splice(firstOrderIndex, 1);
+            size -= currentOrder - acceptedOrders[0];
+            const temp = [];
+            for (let i = 1; i < acceptedOrders.length; i++) {
+                temp.push(acceptedOrders[i]);                
+            }
+
+            acceptedOrders = temp;
         }
 
         checkOrders(index + 1);
@@ -26,9 +31,27 @@ function stockCheckRecursive(size, orders) {
     return acceptedOrders;
 }
 
-const orders = [15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1 ,1 ,1 , 1];
+// Com construção funcional
+function stockCheckFunctional(size, orders) {
+    const acceptedOrders = [];
+
+    orders.forEach(currentOrder => {
+        if (currentOrder <= size) {
+            acceptedOrders.push(currentOrder);
+            size -= currentOrder;
+        } else if (currentOrder - acceptedOrders[0] <= size) {
+            acceptedOrders.push(currentOrder);
+            size -= currentOrder - acceptedOrders[0];
+            acceptedOrders.splice(0, 1);
+        }
+    });
+
+    return acceptedOrders;
+}
+
+const orders = [12, 12, 1342, 15, 15, 15, 13, 1, 1, 1, 1, 1, 1, 1, 1, 15, 15,15 ,15 ,15 , 15];
 const size = 15;
 
-const result = stockCheckRecursive(size, orders);
+const result = stockCheckFunctional(size, orders);
 
 console.log(result);
