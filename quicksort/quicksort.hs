@@ -1,18 +1,28 @@
-main :: IO()
-main = undefined
+import System.CPUTime
 
 quickSort :: [Int] -> [Int]
 quickSort [] = []
-quickSort list  = quickSort left_sublist ++ pivot_list ++ quickSort right_sublist
-    where
-        pivot :: Int
-        pivot = head list
+quickSort list = quickSort leftSublist ++ pivotList ++ quickSort rightSublist
+  where
+    pivot :: Int
+    pivot = head list
 
-        left_sublist :: [Int]
-        left_sublist = filter (<pivot) list
+    leftSublist :: [Int]
+    leftSublist = filter (< pivot) list
 
-        pivot_list :: [Int]
-        pivot_list = filter (==pivot) list
+    pivotList :: [Int]
+    pivotList = filter (== pivot) list
 
-        right_sublist :: [Int]
-        right_sublist = filter (>pivot) list
+    rightSublist :: [Int]
+    rightSublist = filter (> pivot) list
+
+sortedList :: [Int]
+sortedList = quickSort [1..5000000]
+
+main :: IO ()
+main = do
+  start <- getCPUTime
+  seq sortedList (pure ())
+  end <- getCPUTime
+  let diff = fromIntegral (end - start) / (10 ^ 12)
+  putStrLn $ "Time: " ++ show diff ++ " seconds"
