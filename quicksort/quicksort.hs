@@ -17,7 +17,7 @@ quickSort list = quickSort leftSublist ++ pivotList ++ quickSort rightSublist
     rightSublist = filter (> pivot) list
 
 sortedList :: [Int]
-sortedList = quickSort [1..200000000]
+sortedList = quickSort [1..70000000]
 
 main :: IO ()
 main = do
