@@ -9,5 +9,8 @@ produtoLista (x:xs) = x * produtoLista xs  -- elemento atual * produto total
 
 main :: IO ()
 main = do
-    let listaExemplo = [2, 3, 4]
-    putStrLn $ "O produto dos elementos da lista " ++ show listaExemplo ++ " é: " ++ show (produtoLista listaExemplo)
+    putStrLn "tamanho da lista: "
+    tamanhoLista <- readLn
+    let lista = criarLista tamanhoLista
+
+    putStrLn $ "O produto dos elementos da lista " ++ show lista ++ " é: " ++ show (produtoLista lista)
