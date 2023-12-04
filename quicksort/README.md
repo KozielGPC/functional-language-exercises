@@ -8,12 +8,12 @@
 
 - 5.000.000 = 55 segundo
 - 70.000.000 = 1 minuto e 40 segundos
-- 350.000.000 = 3 minutos
+- 350.000.000 = 3 minutos e 10 segundos
 
 ## Linguagem imperativa maximizando a utilização de construções funcionais (Js)
 
-- 5.000.000 = 5 segundos
-- 70.000.000 = 1 minuto
+- 5.000.000 = 4 segundos
+- 70.000.000 = 40 segundos
 - 350.000.000 = 1 minuto e 50 segundos
 
 ###### Obs.: Média de elementos por tempo
