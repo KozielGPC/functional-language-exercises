@@ -67,7 +67,7 @@ function generateRandomArray(size) {
 }
 
 function main() {
-    const testSizes = [30000, 80000, 120000];
+    const testSizes = [11000000, 120000000, 700000000];
 
     for (const size of testSizes) {
         const array = generateRandomArray(size);
