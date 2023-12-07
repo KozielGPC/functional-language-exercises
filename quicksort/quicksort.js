@@ -33,8 +33,8 @@ function quicksortFunctional(array) {
 
 function measureTime(array) {
     const startTime = performance.now();
-    quicksort(array);
-    // quicksortFunctional(array);
+    // quicksort(array);
+    quicksortFunctional(array);
     const endTime = performance.now();
 
     return endTime - startTime;
@@ -49,7 +49,7 @@ function generateRandomArray(size) {
 }
 
 function main() {
-    const testSizes = [1000000, 60000000];
+    const testSizes = [5000000, 70000000, 350000000]; // 5 milhoes e 70 milhoes
 
     for (const size of testSizes) {
         const array = generateRandomArray(size);
