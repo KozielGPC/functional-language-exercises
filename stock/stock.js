@@ -49,17 +49,10 @@ function stockCheckFunctional(size, orders) {
     return acceptedOrders;
 }
 
-// const orders = [12, 12, 1342, 15, 15, 15, 13, 1, 1, 1, 1, 1, 1, 1, 1, 15, 15,15 ,15 ,15 , 15];
-// const size = 15;
-
-// const result = stockCheckFunctional(size, orders);
-
-// console.log(result);
-
 function measureTime(array) {
     const startTime = performance.now();
-    stockCheckFunctional(140000000, array);
-    // quicksortFunctional(array);
+    stockCheckFunctional(100000, array);
+    // stockCheck(150000, array);
     const endTime = performance.now();
 
     return endTime - startTime;
@@ -74,7 +67,7 @@ function generateRandomArray(size) {
 }
 
 function main() {
-    const testSizes = [1000000];
+    const testSizes = [30000, 80000, 120000];
 
     for (const size of testSizes) {
         const array = generateRandomArray(size);
