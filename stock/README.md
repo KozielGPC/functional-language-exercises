@@ -1,8 +1,8 @@
 ## Linguagem Funcional (Haskell)
 
-- 30.000 = 1 segundo
-- 80.000 = 10 segundos
-- 120.000 = 1 minuto
+- 11.000.000 = 1 segundo
+- 120.000.000 = 10 segundos
+- 70.000.000 = 1 minuto
 
 ## Linguagem imperativa sem a utilização de construções funcionais (Js)
 

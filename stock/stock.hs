@@ -1,23 +1,20 @@
 import System.CPUTime
 
 stockCheckRecursive :: Int -> [Int] -> [Int]
-stockCheckRecursive size orders = checkOrders 0 size orders []
+stockCheckRecursive maxSize orders = checkOrders maxSize orders []
   where
-    checkOrders :: Int -> Int -> [Int] -> [Int] -> [Int]
-    checkOrders index remainingSize orders acceptedOrders
-      | index >= length orders = acceptedOrders
+    checkOrders :: Int -> [Int] -> [Int] -> [Int]
+    checkOrders remainingSize [] acceptedOrders = reverse acceptedOrders
+    checkOrders remainingSize (currentOrder:restOrders) acceptedOrders
       | currentOrder <= remainingSize =
-          checkOrders (index + 1) (remainingSize - currentOrder) orders (acceptedOrders ++ [currentOrder])
-      | currentOrder - head acceptedOrders <= remainingSize =
-          checkOrders (index + 1) (remainingSize - (currentOrder - head acceptedOrders)) orders (tail acceptedOrders ++ [currentOrder])
-      | otherwise = checkOrders (index + 1) remainingSize orders acceptedOrders
-      where
-        currentOrder = orders !! index
-
+          checkOrders (remainingSize - currentOrder) restOrders (currentOrder:acceptedOrders)
+      | not (null acceptedOrders) && currentOrder - head acceptedOrders <= remainingSize =
+          checkOrders (remainingSize - (currentOrder - head acceptedOrders)) restOrders (currentOrder:tail acceptedOrders)
+      | otherwise = checkOrders remainingSize restOrders acceptedOrders
 
 
 sortedList :: [Int]
-sortedList = stockCheckRecursive 14 [1..50000]
+sortedList = stockCheckRecursive 100000 [1..700000000]
 
 main :: IO ()
 main = do
