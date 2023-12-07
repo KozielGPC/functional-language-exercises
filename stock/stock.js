@@ -49,9 +49,39 @@ function stockCheckFunctional(size, orders) {
     return acceptedOrders;
 }
 
-const orders = [12, 12, 1342, 15, 15, 15, 13, 1, 1, 1, 1, 1, 1, 1, 1, 15, 15,15 ,15 ,15 , 15];
-const size = 15;
+// const orders = [12, 12, 1342, 15, 15, 15, 13, 1, 1, 1, 1, 1, 1, 1, 1, 15, 15,15 ,15 ,15 , 15];
+// const size = 15;
 
-const result = stockCheckFunctional(size, orders);
+// const result = stockCheckFunctional(size, orders);
 
-console.log(result);
+// console.log(result);
+
+function measureTime(array) {
+    const startTime = performance.now();
+    stockCheckFunctional(140000000, array);
+    // quicksortFunctional(array);
+    const endTime = performance.now();
+
+    return endTime - startTime;
+}
+
+function generateRandomArray(size) {
+    const array = [];
+    for (let i = 0; i < size; i++) {
+        array.push(Math.floor(Math.random() * 1000));
+    }
+    return array;
+}
+
+function main() {
+    const testSizes = [1000000];
+
+    for (const size of testSizes) {
+        const array = generateRandomArray(size);
+        const time = measureTime(array);
+
+        console.log(`Array size: ${size}, Time: ${time.toFixed(4)} milliseconds`);
+    }
+}
+
+main();

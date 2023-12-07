@@ -1,17 +1,28 @@
-stockCheck :: Int -> [Int] -> [Int]
-stockCheck initialSize orders = checkOrders initialSize orders []
-  where
-    checkOrders :: Int -> [Int] -> [Int] -> [Int]
-    checkOrders _ [] acc = acc
-    checkOrders size (currentOrder:restOrders) acc
-      | currentOrder <= size = checkOrders (size - currentOrder) restOrders (acc ++ [currentOrder])
-      | currentOrder - head acc <= size = checkOrders (size - (currentOrder - head acc)) restOrders (tail acc ++ [currentOrder])
-      | otherwise = checkOrders size restOrders acc
+import System.CPUTime
 
+stockCheckRecursive :: Int -> [Int] -> [Int]
+stockCheckRecursive size orders = checkOrders 0 size orders []
+  where
+    checkOrders :: Int -> Int -> [Int] -> [Int] -> [Int]
+    checkOrders index remainingSize orders acceptedOrders
+      | index >= length orders = acceptedOrders
+      | currentOrder <= remainingSize =
+          checkOrders (index + 1) (remainingSize - currentOrder) orders (acceptedOrders ++ [currentOrder])
+      | currentOrder - head acceptedOrders <= remainingSize =
+          checkOrders (index + 1) (remainingSize - (currentOrder - head acceptedOrders)) orders (tail acceptedOrders ++ [currentOrder])
+      | otherwise = checkOrders (index + 1) remainingSize orders acceptedOrders
+      where
+        currentOrder = orders !! index
+
+
+
+sortedList :: [Int]
+sortedList = stockCheckRecursive 14 [1..50000]
 
 main :: IO ()
 main = do
-  let orders = [12, 12, 1342, 15, 15, 15, 13, 1, 1, 1, 1, 1, 1, 1, 1, 15, 15,15 ,15 ,15 , 15]
-      size = 15
-      result = stockCheck size orders
-  print result
+  start <- getCPUTime
+  seq sortedList (pure ())
+  end <- getCPUTime
+  let diff = fromIntegral (end - start) / (10 ^ 12)
+  putStrLn $ "Time: " ++ show diff ++ " seconds"
