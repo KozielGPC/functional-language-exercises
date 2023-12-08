@@ -1,34 +1,41 @@
-function quicksort(array) {
-    if (array.length <= 1) {
-        return array;
-    }
+function partition(array, left, right) {
+    const pivot = array[right];
+    let i = left - 1;
 
-    const pivot = array[0];
-    const lesser = [];
-    const equal = [pivot];
-    const greater = [];
-
-    for (let i = 1; i < array.length; i++) {
-        if (array[i] < pivot) {
-            lesser.push(array[i]);
-        } else {
-            greater.push(array[i]);
+    for (let j = left; j < right; j++) {
+        if (array[j] < pivot) {
+            i++;
+            swap(array, i, j);
         }
     }
 
-    return [...quicksort(lesser), equal, ...quicksort(greater)];
+    swap(array, i + 1, right);
+    return i + 1;
+}
+
+function swap(array, i, j) {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+}
+
+function quicksort(array, left = 0, right = array.length - 1) {
+    if (left < right) {
+        const pivotIndex = partition(array, left, right);
+        quicksort(array, left, pivotIndex - 1);
+        quicksort(array, pivotIndex + 1, right);
+    }
+    return array;
 }
 
 function quicksortFunctional(array) {
     if (array.length <= 1) return array;
 
     const [pivot, ...rest] = array;
-
     const lesser = array.filter(n => n < pivot);
-    const equal = array.filter(n => n === pivot);
     const greater = array.filter(n => n > pivot);
 
-    return quicksortFunctional(lesser).concat(equal).concat(quicksortFunctional(greater));
+    return quicksortFunctional(lesser).concat(pivot).concat(quicksortFunctional(greater));
 }
 
 function measureTime(array) {
